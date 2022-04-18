@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Atendimentos;
 use App\Http\Controllers\EquipeMedidores;
 use App\Http\Controllers\EquipeRamal;
 use App\Http\Controllers\EstruturaCadastro;
@@ -84,3 +85,12 @@ Route::post('/ramal/store', [EquipeRamal::class, 'store'])->name('ramal.store');
 Route::get('/ramal/{id}/show', [EquipeRamal::class, 'show'])->name('ramal.show');
 
 Route::delete('/ramal/{id}/destroy', [EquipeRamal::class, 'destroy'])->name('ramal.destroy');
+
+
+//ROTAS PARA REGISTROS DE ATENDIMENTO
+
+Route::get('/atendimento', [Atendimentos::class, 'index'])->name('atendimento.index');
+Route::post('/atendimento/store', [Atendimentos::class, 'store'])->name('atendimento.store');
+Route::get('/atendimento/{id}/show', [Atendimentos::class, 'show'])->name('atendimento.show');
+Route::put('/atendimento/{id}/update', [Atendimentos::class, 'update'])->name('atendimento.update');
+Route::delete('/atendimento/{id}/destroy', [Atendimentos::class, 'destroy'])->name('atendimento.destroy');

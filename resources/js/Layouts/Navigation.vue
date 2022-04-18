@@ -5,6 +5,17 @@
       :active="route().current('dashboard')"
       >Dashboard</jet-nav-link
     >
+        <nav-link-dropdown
+      label="Baixa de OS"
+      :active="
+        route().current('atendimento.*')
+    
+      "
+    >
+      <jet-dropdown-link :href="route('atendimento.index')"
+        >Atendimentos</jet-dropdown-link
+      >
+    </nav-link-dropdown>
     <nav-link-dropdown
       label="Equipe"
       :active="
