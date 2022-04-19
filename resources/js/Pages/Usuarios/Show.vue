@@ -294,7 +294,7 @@
         <table
           class="
             mx-auto
-            max-w-7xl
+            max-w-5xl
             w-full
             whitespace-nowrap
             rounded-lg
