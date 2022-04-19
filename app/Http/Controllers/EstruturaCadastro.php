@@ -16,7 +16,7 @@ class EstruturaCadastro extends Controller
     {
         $supervisores = EstruturaSupervisor::where('status', 'ATIVO')->get();
         $fiscais = EstruturaEncarregado::where('status', 'ATIVO')->get();
-        $equipes = EstruturaEquipe::with('encarregado', 'supervisor')->get();
+        $equipes = EstruturaEquipe::with('encarregado', 'supervisor')->orderBy('equipe')->get();
 
         return Inertia::Render('Estrutura/Equipes/Index', compact('equipes', 'fiscais', 'supervisores'));
     }
