@@ -32,7 +32,7 @@ class EstruturaCadastro extends Controller
     {
         BannerMessage::message('O valor informado já está em uso ou não atinge o tamanho valido.', 'danger');
         $validator = $request->validate([
-            'equipe' => 'required|min:9|max:9|unique:estrutura_equipes,equipe',
+            'equipe' => 'required|min:8|max:8|unique:estrutura_equipes,equipe',
             'fiscal' => 'required|int',
             'supervisor' => 'required|int',
             'empresa' => 'required|string',
