@@ -365,7 +365,7 @@
           <button
             @click="showModalDelete = true"
             class="
-              mr-8
+              mr-40
               mt-4
               inline-flex
               items-center
@@ -445,6 +445,7 @@
                   form="formDelete"
                   type="submit"
                   class="
+                    
                     ml-3
                     inline-flex
                     items-center
