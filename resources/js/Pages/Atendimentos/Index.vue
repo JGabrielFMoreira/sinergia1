@@ -276,7 +276,7 @@
             </tr>
           </thead>
           <tbody
-            v-for="atendimento in atendimentos"
+            v-for="atendimento in atendimentos.data"
             :key="atendimento.id"
             class="divide-y divide-gray-200"
           >
@@ -297,7 +297,7 @@
                 <span> {{ atendimento.created_at }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
-                                <span
+                <span
                   :class="{
                     'bg-green-600 text-white p-1 rounded':
                       atendimento.os_atribuida === 'SIM',
@@ -331,6 +331,20 @@
           </tbody>
         </table>
       </div>
+      <div
+        class="
+          mt-4
+          font-semibold
+          text-xs text-black
+          uppercase
+          text-center
+          tracking-widest
+        " 
+      >
+        <a :href="atendimentos.first_page_url" class="mr-2">Início</a>
+        <a :href="atendimentos.next_page_url" class="mr-2">Próxima</a>
+        <a :href="atendimentos.last_page_url" class="mr-2">Última</a>
+      </div>
     </div>
   </app-layout>
 </template>
@@ -355,7 +369,7 @@ export default defineComponent({
 
   props: {
     atendimentos: Array,
-    equipes: Array
+    equipes: Array,
   },
   data() {
     return {

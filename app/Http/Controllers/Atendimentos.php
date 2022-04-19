@@ -14,7 +14,12 @@ class Atendimentos extends Controller
     public function index()
     {
         $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
-        $atendimentos = Atendimento::with('equipe', 'user')->get();
+        $atendimentos = Atendimento::with('equipe', 'user')->orderBy('created_at')->paginate(15)->tap(function ($paginator) {
+            return $paginator->getCollection()->transform(function ($item){
+                return $item ;
+            });
+        });
+
         return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
 
     }
