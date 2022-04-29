@@ -94,5 +94,3 @@ Route::post('/atendimento/store', [Atendimentos::class, 'store'])->name('atendim
 Route::get('/atendimento/{id}/show', [Atendimentos::class, 'show'])->name('atendimento.show');
 Route::put('/atendimento/{id}/update', [Atendimentos::class, 'update'])->name('atendimento.update');
 Route::delete('/atendimento/{id}/destroy', [Atendimentos::class, 'destroy'])->name('atendimento.destroy');
-
-Route::get('/atendimento/pesquisar', [Atendimentos::class, 'pesquisar'])->name('atendimento.pesquisar');

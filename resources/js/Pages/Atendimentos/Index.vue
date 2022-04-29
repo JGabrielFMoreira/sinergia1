@@ -459,7 +459,7 @@ export default defineComponent({
       this.showModal = false;
     },
     submitPesquisa() {
-      this.formPesquisa.get(this.route("atendimento.pesquisar"));
+      this.formPesquisa.get(this.route("atendimento.index"));
     },
   },
 });
