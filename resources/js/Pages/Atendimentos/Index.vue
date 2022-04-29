@@ -250,29 +250,19 @@
         <div class="grid grid-cols-12">
           <div class="col-span-9"></div>
           <div class="col-span-1">
-            <label
-              for="os"
-              class="
-                block
-                text-xs text-black
-                uppercase
-                font-bold
-                tracking-widest
-              "
-              >PESQUISAR UC</label
-            >
             <input
+            placeholder="Pequisar UC"
               v-model="formPesquisa.pesquisar"
-              style="width: 100%"
+              style="width: 125%"
               type="text"
               name="pesquisar"
               id="pesquisar"
               class="
-                mb-2
-                focus:bg-white focus:border-blue-400
+                bg-gray-100
+                mb-1
+                focus:bg-white focus:border-gray-400
                 shadow-sm
                 text-xs text-black
-                tracking-widest
                 border-gray-200
                 bg-gray-100
                 rounded-md
@@ -285,27 +275,13 @@
               form="formPesquisa"
               type="submit"
               class="
-                mt-6
-                ml-2
-                inline-flex
-                items-center
-                px-2
-                py-1
-                bg-blue-800
-                border border-transparent
-                rounded-md
-                text-xs text-white
-                hover:bg-blue-700
-                active:bg-blue-900
-                focus:outline-none
-                focus:border-blue-900
-                focus:shadow-outline-blue
-                transition
-                ease-in-out
-                duration-150
+              text-gray-800
+              mt-2
+              ml-8
               "
             >
-              BUSCAR
+              <magnify-icon
+                />
             </button>
           </div>
         </div>
@@ -379,19 +355,11 @@
                 <a
                   :href="route('atendimento.show', atendimento.id)"
                   class="
-                    ml-3
-                    hover:underline
-                    bg-blue-100
-                    text-blue-800 text-xs
-                    font-semibold
-                    mr-2
-                    px-2.5
-                    py-0.5
-                    rounded
-                    dark:bg-red-200 dark:text-red-900
+                    text-center 
+                    text-gray-800
                   "
-                  >VISUALIZAR</a
-                >
+                  ><eye-plus-icon
+                /></a>
               </td>
             </tr>
           </tbody>
@@ -422,6 +390,8 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import ListItem from "@/Components/ListItem";
 import DialogModal from "@/Jetstream/DialogModal";
 import JetValidationErrors from "@/Jetstream/ValidationErrors.vue";
+import EyePlusIcon from "vue-material-design-icons/EyePlus.vue";
+import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
 
 export default defineComponent({
   components: {
@@ -431,6 +401,8 @@ export default defineComponent({
     ListItem,
     DialogModal,
     JetValidationErrors,
+    EyePlusIcon,
+    MagnifyIcon,
   },
 
   props: {
