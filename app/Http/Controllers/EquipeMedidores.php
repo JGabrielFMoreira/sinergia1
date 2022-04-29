@@ -16,6 +16,7 @@ class EquipeMedidores extends Controller
     public function index()
     {
 
+        
         $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
         $entregas = MdEntrega::with('equipe.encarregado')->orderByDesc('id')->get();
         return Inertia::render('Medidores/Index', compact('entregas', 'equipes'));

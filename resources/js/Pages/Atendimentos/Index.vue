@@ -244,7 +244,73 @@
         </template>
       </DialogModal>
     </template>
+
     <div class="min-h-screen bg-gray-200 py-5">
+      <form id="formPesquisa" @submit.prevent="submitPesquisa">
+        <div class="grid grid-cols-12">
+          <div class="col-span-9"></div>
+          <div class="col-span-1">
+            <label
+              for="os"
+              class="
+                block
+                text-xs text-black
+                uppercase
+                font-bold
+                tracking-widest
+              "
+              >PESQUISAR UC</label
+            >
+            <input
+              v-model="formPesquisa.pesquisar"
+              style="width: 100%"
+              type="text"
+              name="pesquisar"
+              id="pesquisar"
+              class="
+                mb-2
+                focus:bg-white focus:border-blue-400
+                shadow-sm
+                text-xs text-black
+                tracking-widest
+                border-gray-200
+                bg-gray-100
+                rounded-md
+              "
+            />
+          </div>
+
+          <div class="col-span-1">
+            <button
+              form="formPesquisa"
+              type="submit"
+              class="
+                mt-6
+                ml-2
+                inline-flex
+                items-center
+                px-2
+                py-1
+                bg-blue-800
+                border border-transparent
+                rounded-md
+                text-xs text-white
+                hover:bg-blue-700
+                active:bg-blue-900
+                focus:outline-none
+                focus:border-blue-900
+                focus:shadow-outline-blue
+                transition
+                ease-in-out
+                duration-150
+              "
+            >
+              BUSCAR
+            </button>
+          </div>
+        </div>
+      </form>
+
       <div class="overflow-x-auto w-full">
         <table
           class="
@@ -339,7 +405,7 @@
           uppercase
           text-center
           tracking-widest
-        " 
+        "
       >
         <a :href="atendimentos.first_page_url" class="mr-2">Início</a>
         <a :href="atendimentos.next_page_url" class="mr-2">Próxima</a>
@@ -381,12 +447,19 @@ export default defineComponent({
       }),
 
       showModal: false,
+
+      formPesquisa: this.$inertia.form({
+        pesquisar: "",
+      }),
     };
   },
   methods: {
     submit() {
       this.form.post(this.route("atendimento.store"));
       this.showModal = false;
+    },
+    submitPesquisa() {
+      this.formPesquisa.get(this.route("atendimento.pesquisar"));
     },
   },
 });
