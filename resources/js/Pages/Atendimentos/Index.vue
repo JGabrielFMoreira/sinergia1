@@ -299,7 +299,6 @@
               form="formPesquisa"
               type="submit"
               class="
-                
                 mt-0.5
                 ml-3
                 btn
@@ -312,7 +311,8 @@
                 leading-tight
                 uppercase
                 rounded
-                shadow-mdcd c:
+                shadow-mdcd
+                c:
                 hover:bg-gray-900 hover:shadow-lg
                 focus:bg-gray-600
                 focus:shadow-lg
@@ -400,10 +400,18 @@
                 <a
                   :href="route('atendimento.show', atendimento.id)"
                   class="
+                    ml-3
+                    hover:underline
+                    bg-blue-100
                     text-blue-800 text-xs
-
+                    font-semibold
+                    mr-2
+                    px-2.5
+                    py-0.5
+                    rounded
+                    dark:bg-red-200 dark:text-red-900
                   "
-                  ><eye-plus-icon/></a
+                  >VISUALIZAR</a
                 >
               </td>
             </tr>
