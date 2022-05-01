@@ -19,7 +19,7 @@ class Atendimentos extends Controller
         if ($pesquisa === null) {
 
             $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
-            $atendimentos = Atendimento::with('equipe', 'user')->orderByDesc('created_at')->paginate(10)->tap(function ($paginator) {
+            $atendimentos = Atendimento::with('equipe', 'user')->orderByDesc('created_at')->paginate(15)->tap(function ($paginator) {
                 return $paginator->getCollection()->transform(function ($item) {
                     return $item;
                 });
