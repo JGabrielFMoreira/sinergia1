@@ -312,7 +312,7 @@
                 leading-tight
                 uppercase
                 rounded
-                shadow-md
+                shadow-mdcd c:
                 hover:bg-gray-900 hover:shadow-lg
                 focus:bg-gray-600
                 focus:shadow-lg
