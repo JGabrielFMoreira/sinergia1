@@ -381,7 +381,7 @@
                 <span> {{ atendimento.uc_atendida }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
-                <span> {{ atendimento.id}} - {{ atendimento.created_at}} </span>
+                <span> {{ atendimento.created_at}} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
                 <span
