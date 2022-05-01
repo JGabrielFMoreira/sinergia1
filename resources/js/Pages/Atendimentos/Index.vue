@@ -250,24 +250,48 @@
         <div class="grid grid-cols-12">
           <div class="col-span-9"></div>
           <div class="col-span-1">
-            <input
-            placeholder="Pequisar UC"
-              v-model="formPesquisa.pesquisar"
-              style="width: 125%"
-              type="text"
-              name="pesquisar"
-              id="pesquisar"
+            <div
               class="
-                bg-gray-100
+                ml-2
+                input-group
+                relative
+                flex flex-wrap
+                items-stretch
+                w-full
                 mb-1
-                focus:bg-white focus:border-gray-400
-                shadow-sm
-                text-xs text-black
-                border-gray-200
-                bg-gray-100
-                rounded-md
               "
-            />
+            >
+              <input
+                type="search"
+                v-model="formPesquisa.pesquisar"
+                class="
+                  form-control
+                  relative
+                  flex-auto
+                  min-w-0
+                  block
+                  w-full
+                  px-3
+                  py-1
+                  text-xs
+                  font-normal
+                  text-gray-700
+                  bg-white bg-clip-padding
+                  border border-solid border-gray-400
+                  rounded
+                  transition
+                  ease-in-out
+                  m-0
+                  focus:text-gray-700
+                  focus:bg-white
+                  focus:border-blue-600
+                  focus:outline-none
+                "
+                placeholder="Pesquisar"
+                aria-label="Search"
+                aria-describedby="button-addon2"
+              />
+            </div>
           </div>
 
           <div class="col-span-1">
@@ -275,13 +299,34 @@
               form="formPesquisa"
               type="submit"
               class="
-              text-gray-800
-              mt-2
-              ml-8
+                
+                mt-0.5
+                ml-3
+                btn
+                inline-block
+                px-3
+                bg-gray-800
+                text-white
+                font-medium
+                text-xs
+                leading-tight
+                uppercase
+                rounded
+                shadow-md
+                hover:bg-gray-900 hover:shadow-lg
+                focus:bg-gray-600
+                focus:shadow-lg
+                focus:outline-none
+                focus:ring-0
+                active:bg-gray-800 active:shadow-lg
+                transition
+                duration-150
+                ease-in-out
+                flex
+                items-center
               "
             >
-              <magnify-icon
-                />
+              <magnify-icon />
             </button>
           </div>
         </div>
@@ -355,29 +400,73 @@
                 <a
                   :href="route('atendimento.show', atendimento.id)"
                   class="
-                    text-center 
-                    text-gray-800
+                    text-blue-800 text-xs
+
                   "
-                  ><eye-plus-icon
-                /></a>
+                  ><eye-plus-icon/></a
+                >
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div
-        class="
-          mt-4
-          font-semibold
-          text-xs text-black
-          uppercase
-          text-center
-          tracking-widest
-        "
-      >
-        <a :href="atendimentos.first_page_url" class="mr-2">Início</a>
-        <a :href="atendimentos.next_page_url" class="mr-2">Próxima</a>
-        <a :href="atendimentos.last_page_url" class="mr-2">Última</a>
+      <div class="mt-2 flex flex-col items-center">
+        <!-- Help text -->
+        <span class="text-sm text-gray-700 dark:text-gray-400">
+          Visualizando
+          <span class="font-semibold text-gray-900 dark:text-white">{{
+            atendimentos.current_page
+          }}</span>
+          de
+          <span class="font-semibold text-gray-900 dark:text-white">{{
+            atendimentos.last_page
+          }}</span>
+          Páginas
+        </span>
+        <!-- Buttons -->
+        <div class="inline-flex xs:mt-0">
+          <a
+            :href="atendimentos.prev_page_url"
+            class="
+              py-2
+              px-4
+              text-sm
+              font-medium
+              text-white
+              bg-gray-800
+              rounded-l
+              hover:bg-gray-900
+              dark:bg-gray-800
+              dark:border-gray-700
+              dark:text-gray-400
+              dark:hover:bg-gray-700
+              dark:hover:text-white
+            "
+          >
+            Anterior
+          </a>
+          <a
+            :href="atendimentos.next_page_url"
+            class="
+              py-2
+              px-4
+              text-sm
+              font-medium
+              text-white
+              bg-gray-800
+              rounded-r
+              border-0 border-l border-gray-700
+              hover:bg-gray-900
+              dark:bg-gray-800
+              dark:border-gray-700
+              dark:text-gray-400
+              dark:hover:bg-gray-700
+              dark:hover:text-white
+            "
+          >
+            Próximo
+          </a>
+        </div>
       </div>
     </div>
   </app-layout>
