@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class BaseModel extends Model
 {
     public function getCreatedAtAttribute($attr) {        
-        return Carbon::parse($attr)->format('d/m/Y'); //Change the format to whichever you desire
+        return Carbon::parse($attr)->format('d/m/Y H:m:i'); //Change the format to whichever you desire
     }
 }

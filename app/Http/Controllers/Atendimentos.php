@@ -17,27 +17,26 @@ class Atendimentos extends Controller
         $pesquisa = $request['pesquisar'];
 
         if ($pesquisa === null) {
-
             $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
-            $atendimentos = Atendimento::with('equipe', 'user')->orderByDesc('created_at')->paginate(15)->tap(function ($paginator) {
+            $atendimentos = Atendimento::with('equipe', 'user')
+            ->orderByDesc('created_at')
+            ->paginate(15)
+            ->tap(function ($paginator) {
                 return $paginator->getCollection()->transform(function ($item) {
                     return $item;
                 });
             });
-
-            return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
-            exit();
+      return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
+    
         }
 
         $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
-        $atendimentos = Atendimento::with('equipe', 'user')->where('uc_atendida', $pesquisa)
-            ->orderByDesc('created_at')->paginate(10)->tap(function ($paginator) {
-                return $paginator->getCollection()->transform(function ($item) {
-                    return $item;
-                });
-            });
+        $atendimentos = Atendimento::with('equipe', 'user')
+            ->where('uc_atendida', $pesquisa)
+            ->orderByDesc('created_at')
+            ->paginate(10);
 
-        return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
+       return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
     }
 
 
