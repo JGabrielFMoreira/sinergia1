@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Atendimento;
 use App\Models\EstruturaEquipe;
 use App\Services\BannerMessage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,6 +16,11 @@ class Atendimentos extends Controller
     {
 
         $pesquisa = $request['pesquisar'];
+
+        
+
+
+
 
         if ($pesquisa === null) {
             $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
@@ -58,12 +64,22 @@ class Atendimentos extends Controller
 
         $idUsuario = auth()->id();
 
-        $novoAtendimento = Atendimento::create([
+       
+        $primeira_consulta = Atendimento::whereDate('created_at', Carbon::today())->where('equipe_id', $validator['equipe'])->get();
+
+            $primeira = "NAO";
+
+        if(count($primeira_consulta) === 0){
+            $primeira = "SIM";
+        }
+
+        Atendimento::create([
             'atendente_id' => $idUsuario,
             'equipe_id' => $validator['equipe'],
             'tipo_atendimento' => $validator['tipo'],
             'uc_atendida' => $validator['uc'],
-            'os_atribuida' => $validator['os']
+            'os_atribuida' => $validator['os'],
+            'primeira_consulta' => $primeira
 
         ]);
         BannerMessage::message('Atendimento registrado');
