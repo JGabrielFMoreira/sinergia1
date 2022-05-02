@@ -249,6 +249,7 @@
       <form id="formPesquisa" @submit.prevent="submitPesquisa">
         <div class="grid grid-cols-12">
           <div class="col-span-9"></div>
+
           <div class="col-span-1">
             <div
               class="
@@ -277,7 +278,7 @@
                   font-normal
                   text-gray-700
                   bg-white bg-clip-padding
-                  border border-solid border-gray-400
+                  border border-solid border-gray-300
                   rounded
                   transition
                   ease-in-out
@@ -398,7 +399,7 @@
                   {{ atendimento.primeira_consulta }}
                 </span>
               </td>
-              <td class="text-xs px-2 py-2 text-center">  
+              <td class="text-xs px-2 py-2 text-center">
                 <span
                   :class="{
                     'bg-green-600 text-white p-1 rounded':
