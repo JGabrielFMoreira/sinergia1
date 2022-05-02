@@ -67,7 +67,7 @@ class Atendimentos extends Controller
        
         $primeira_consulta = Atendimento::whereDate('created_at', Carbon::today())->where('equipe_id', $validator['equipe'])->get();
 
-            $primeira = "NÃO";
+            $primeira = "NAO";
 
         if(count($primeira_consulta) === 0){
             $primeira = "SIM";
