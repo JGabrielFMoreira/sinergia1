@@ -357,6 +357,9 @@
                 DATA ATENDIMENTO
               </th>
               <th class="font-semibold text-xs uppercase px-2 py-2">
+                PRIMEIRA CONSULTA ?
+              </th>
+              <th class="font-semibold text-xs uppercase px-2 py-2">
                 OS ATRIBUÍDA ?
               </th>
               <th class="font-semibold text-xs uppercase px-2 py-2">AÇÕES</th>
@@ -381,9 +384,21 @@
                 <span> {{ atendimento.uc_atendida }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
-                <span> {{ atendimento.created_at}} </span>
+                <span> {{ atendimento.created_at }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
+                <span
+                  :class="{
+                    'bg-blue-600 text-white p-1 rounded':
+                      atendimento.primeira_consulta === 'SIM',
+                    'bg-gray-500 text-white p-1 rounded':
+                      atendimento.primeira_consulta === 'NAO',
+                  }"
+                >
+                  {{ atendimento.primeira_consulta }}
+                </span>
+              </td>
+              <td class="text-xs px-2 py-2 text-center">  
                 <span
                   :class="{
                     'bg-green-600 text-white p-1 rounded':
