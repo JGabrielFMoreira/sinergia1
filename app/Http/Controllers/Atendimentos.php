@@ -14,35 +14,46 @@ class Atendimentos extends Controller
 
     public function index(Request $request)
     {
-
-        $pesquisa = $request['pesquisar'];
-
         
-
-
+        $pesquisa = $request['pesquisar'];
 
 
         if ($pesquisa === null) {
             $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
             $atendimentos = Atendimento::with('equipe', 'user')
-            ->orderByDesc('created_at')
-            ->paginate(15)
-            ->tap(function ($paginator) {
-                return $paginator->getCollection()->transform(function ($item) {
-                    return $item;
+                ->orderByDesc('created_at')
+                ->paginate(15)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
                 });
-            });
-      return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
-    
+            return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
         }
+    
+        $pesquisa_equipe = EstruturaEquipe::where('equipe', $pesquisa)->first();
 
+
+        if($pesquisa_equipe === null){
+            $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
+            $atendimentos = Atendimento::with('equipe', 'user')
+                ->where('uc_atendida', $pesquisa)
+                ->orWhere('tipo_atendimento', $pesquisa)
+                ->orderByDesc('created_at')
+                ->paginate(50);
+    
+            return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
+        }
+        
         $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
         $atendimentos = Atendimento::with('equipe', 'user')
             ->where('uc_atendida', $pesquisa)
+            ->orWhere('tipo_atendimento', $pesquisa)
+            ->orWhere('equipe_id', $pesquisa_equipe->id)
             ->orderByDesc('created_at')
-            ->paginate(10);
+            ->paginate(50);
 
-       return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
+        return Inertia::render('Atendimentos/Index', compact('atendimentos', 'equipes'));
     }
 
 
@@ -64,12 +75,12 @@ class Atendimentos extends Controller
 
         $idUsuario = auth()->id();
 
-       
+
         $primeira_consulta = Atendimento::whereDate('created_at', Carbon::today())->where('equipe_id', $validator['equipe'])->get();
 
-            $primeira = "NAO";
+        $primeira = "NAO";
 
-        if(count($primeira_consulta) === 0){
+        if (count($primeira_consulta) === 0) {
             $primeira = "SIM";
         }
 

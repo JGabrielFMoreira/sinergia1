@@ -12,12 +12,84 @@ use Inertia\Inertia;
 class EstruturaCadastro extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $pesquisa = $request['pesquisar'];
+
+        if ($pesquisa === null) {
+
+            $supervisores = EstruturaSupervisor::where('status', 'ATIVO')->get();
+            $fiscais = EstruturaEncarregado::where('status', 'ATIVO')->get();
+            $equipes = EstruturaEquipe::with('encarregado', 'supervisor')->orderBy('equipe')
+                ->paginate(50)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
+                });;
+            return Inertia::Render('Estrutura/Equipes/Index', compact('equipes', 'fiscais', 'supervisores'));
+        }
+
+
+
+        $pesquisa_fiscal = EstruturaEncarregado::where('name', $pesquisa)->first();
+        $pesquisa_supervisor = EstruturaSupervisor::where('name', $pesquisa)->first();
+
+
+
+
+        if ($pesquisa_fiscal === null and $pesquisa_supervisor != null) {
+
+            $supervisores = EstruturaSupervisor::where('status', 'ATIVO')->get();
+            $fiscais = EstruturaEncarregado::where('status', 'ATIVO')->get();
+            $equipes = EstruturaEquipe::with('encarregado', 'supervisor')
+                ->orderBy('equipe')
+                ->where('equipe', $pesquisa)
+                ->orWhere('supervisor_id', $pesquisa_supervisor->id)
+                ->orWhere('empresa', $pesquisa)
+                ->orWhere('status', $pesquisa)
+                ->paginate(50)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
+                });;
+            return Inertia::Render('Estrutura/Equipes/Index', compact('equipes', 'fiscais', 'supervisores'));
+        }
+
+
+        if ($pesquisa_fiscal != null and $pesquisa_supervisor === null) {
+
+            $supervisores = EstruturaSupervisor::where('status', 'ATIVO')->get();
+            $fiscais = EstruturaEncarregado::where('status', 'ATIVO')->get();
+            $equipes = EstruturaEquipe::with('encarregado', 'supervisor')
+                ->orderBy('equipe')
+                ->where('equipe', $pesquisa)
+                ->orWhere('fiscal_id', $pesquisa_fiscal->id)
+                ->orWhere('empresa', $pesquisa)
+                ->orWhere('status', $pesquisa)
+                ->paginate(50)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
+                });;
+            return Inertia::Render('Estrutura/Equipes/Index', compact('equipes', 'fiscais', 'supervisores'));
+        }
+
         $supervisores = EstruturaSupervisor::where('status', 'ATIVO')->get();
         $fiscais = EstruturaEncarregado::where('status', 'ATIVO')->get();
-        $equipes = EstruturaEquipe::with('encarregado', 'supervisor')->orderBy('equipe')->get();
-
+        $equipes = EstruturaEquipe::with('encarregado', 'supervisor')
+            ->orderBy('equipe')
+            ->where('equipe', $pesquisa)
+            ->orWhere('empresa', $pesquisa)
+            ->orWhere('status', $pesquisa)
+            ->paginate(50)
+            ->tap(function ($paginator) {
+                return $paginator->getCollection()->transform(function ($item) {
+                    return $item;
+                });
+            });;
         return Inertia::Render('Estrutura/Equipes/Index', compact('equipes', 'fiscais', 'supervisores'));
     }
 
@@ -101,7 +173,5 @@ class EstruturaCadastro extends Controller
         EstruturaEquipe::findOrFail($id)->delete();
         BannerMessage::message('Equipe Excluída.');
         return redirect()->route('estrutura.index', $id);
-    
     }
-    
 }

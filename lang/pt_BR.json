@@ -32,5 +32,7 @@
     "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one." : "Esqueceu sua senha? Sem problemas. Basta nos informar seu endereço de e-mail e nós enviaremos um link de redefinição de senha que permitirá que você escolha uma nova.",
     "This action is unauthorized." : "Essa ação não é autorizada.",
     "Whoops! Something went wrong." : "Opa! Algo deu errado.",
-    "This is a secure area of the application. Please confirm your password before continuing." : "Esta é uma área segura do aplicativo. Por favor, confirme seus dados antes de continuar."
+    "This is a secure area of the application. Please confirm your password before continuing." : "Esta é uma área segura do aplicativo. Por favor, confirme seus dados antes de continuar.",
+    "Update your account's profile information and email address." : " Atualize as informações de perfil"
+
 }

@@ -12,16 +12,63 @@ use Inertia\Inertia;
 class UsuariosController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $pesquisa = $request['pesquisar'];
+
+
+        if ($pesquisa === null) {
+            $tipos = UsuarioCategoria::all();
+            $usuarios = User::with('categoria')
+                ->orderBy('created_at')
+                ->paginate(15)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
+                });
+            return Inertia::render('Usuarios/Index', compact('usuarios', 'tipos'));
+        }
+
+        $pesquisa_categoria = UsuarioCategoria::where('descricao', $pesquisa)->first();
+
+        if ($pesquisa_categoria === null) {
+
+            $tipos = UsuarioCategoria::all();
+            $usuarios = User::with('categoria')
+                ->where('name', $pesquisa)
+                ->orWhere('matricula', $pesquisa)
+                ->orWhere('empresa', $pesquisa)
+                ->orderBy('created_at')
+                ->paginate(15)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
+                });
+            return Inertia::render('Usuarios/Index', compact('usuarios', 'tipos'));
+        }
+
+
+
         $tipos = UsuarioCategoria::all();
-        $usuarios = User::with('categoria')->get();
+        $usuarios = User::with('categoria')
+            ->where('name', $pesquisa)
+            ->orWhere('matricula', $pesquisa)
+            ->orWhere('categoria_id', $pesquisa_categoria->id)
+            ->orWhere('empresa', $pesquisa)
+            ->orderBy('created_at')
+            ->paginate(15)
+            ->tap(function ($paginator) {
+                return $paginator->getCollection()->transform(function ($item) {
+                    return $item;
+                });
+            });
         return Inertia::render('Usuarios/Index', compact('usuarios', 'tipos'));
     }
 
     public function create()
     {
-        
     }
 
 
@@ -54,7 +101,7 @@ class UsuariosController extends Controller
     {
         $tipos = UsuarioCategoria::all();
         $usuario = User::with('categoria')->find($id);
- 
+
         return Inertia::render('Usuarios/Show', compact('usuario', 'tipos'));
     }
 
@@ -75,7 +122,7 @@ class UsuariosController extends Controller
             'state' => 'required|string',
 
         ]);
-        
+
         $usuario = User::find($id);
 
         $usuario->name = $validator['name'];
@@ -87,7 +134,6 @@ class UsuariosController extends Controller
         $usuario->save();
         BannerMessage::message('Usuário Editado');
         return redirect()->route('usuarios.show', $id);
-        
     }
 
     public function destroy($id)

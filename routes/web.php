@@ -39,7 +39,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/', function() {return Inertia::render('Auth/Login');});
 
-
+ 
 
 //ROTAS PARA CADASTRO DE USUÁRIO:
 Route::get('/usuario', [UsuariosController::class, 'index'])->name('usuarios.index');

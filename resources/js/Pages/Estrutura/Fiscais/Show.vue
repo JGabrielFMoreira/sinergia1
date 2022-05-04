@@ -2,33 +2,49 @@
   <app-layout title="Dashboard">
     <template #header>
       <div class="flex justify-end">
-        <a
+        <Link
           :href="route('estrutura_fiscal.index')"
           class="
             inline-flex
             items-center
             px-4
             py-1
-            bg-blue-800
+            bg-gray-800
             border border-transparent
             rounded-md
             font-semibold
             text-xs text-white
             uppercase
             tracking-widest
-            hover:bg-blue-600
-            active:bg-blue-900
+            hover:bg-gray-600
+            active:bg-gray-900
             focus:outline-none focus:border-gray-900 focus:shadow-outline-gray
             transition
             ease-in-out
             duration-150
           "
-          >VOLTAR</a
+          >VOLTAR</Link
         >
       </div>
       <DialogModal :show="showModal">
         <template #content>
-          <list-item class="mb-8  items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest"> EDIÇÃO DE FISCAL</list-item>
+          <list-item
+            class="
+              mb-8
+              items-center
+              px-4
+              py-2
+              bg-gray-800
+              border border-transparent
+              rounded-md
+              font-semibold
+              text-xs text-white
+              uppercase
+              tracking-widest
+            "
+          >
+            EDIÇÃO DE FISCAL</list-item
+          >
           <form id="form" @submit.prevent="submit">
             <div class="grid grid-cols-12 gap-2">
               <div class="col-span-4">
@@ -91,8 +107,13 @@
                     rounded-md
                   "
                 >
-                  <option v-for="supervisor in supervisores" :key="supervisor.id" :value="supervisor.id">{{supervisor.name}}</option>
-
+                  <option
+                    v-for="supervisor in supervisores"
+                    :key="supervisor.id"
+                    :value="supervisor.id"
+                  >
+                    {{ supervisor.name }}
+                  </option>
                 </select>
               </div>
               <div class="col-span-4">
@@ -124,7 +145,6 @@
                     rounded-md
                   "
                 >
-                  
                   <option value="ATIVO">ATIVO</option>
                   <option value="INATIVO">INATIVO</option>
                 </select>
@@ -188,12 +208,12 @@
         </template>
       </DialogModal>
     </template>
-    <div class="min-h-screen bg-gray-200 py-5">
-      <div class="overflow-x-auto w-full">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="mt-6 overflow-x-auto w-full">
         <table
           class="
             mx-auto
-            max-w-4xl
+            max-w-7xl
             w-full
             whitespace-nowrap
             rounded-lg
@@ -260,7 +280,6 @@
           <button
             @click="showModalDelete = true"
             class="
-              mr-56
               mt-4
               inline-flex
               items-center

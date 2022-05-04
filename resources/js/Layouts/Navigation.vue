@@ -50,7 +50,7 @@
 
     <nav-link-dropdown
       label="Estrutura"
-      :active="route().current('estrutura.*') || route().current('estrutura.*')"
+      :active="route().current('estrutura.*') || route().current('estrutura_fiscal.*') || route().current('estrutura_supervisor.*')"
     >
       <jet-dropdown-link :href="route('estrutura.index')"
         >Equipes</jet-dropdown-link
@@ -64,7 +64,7 @@
     </nav-link-dropdown>
 
     <nav-link-dropdown
-      label="Admin"
+      label="Administrador"
       :active="
         route().current('usuarios.*') ||
         route().current('usuarios.*') ||

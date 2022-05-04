@@ -11,24 +11,69 @@ use Inertia\Inertia;
 class EstruturaFiscal extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
 
     {
+        $pesquisa = $request['pesquisar'];
+
+
+        if ($pesquisa === null) {
+
+            $supervisores = EstruturaSupervisor::where('status', 'ATIVO')->get();
+            $fiscais = EstruturaEncarregado::with('supervisor')
+                ->orderBy('id')
+                ->paginate(15)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
+                });
+            return Inertia::render('Estrutura/Fiscais/Index', compact('fiscais', 'supervisores'));
+        }
+
+        $pesquisa_supervisor = EstruturaSupervisor::where('name', $pesquisa)->first();
+
+        if ($pesquisa_supervisor === null) {
+
+            $supervisores = EstruturaSupervisor::where('status', 'ATIVO')->get();
+            $fiscais = EstruturaEncarregado::with('supervisor')
+                ->orderBy('id')
+                ->where('name', $pesquisa)
+                ->orWhere('status', $pesquisa)
+                ->paginate(15)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
+                });
+            return Inertia::render('Estrutura/Fiscais/Index', compact('fiscais', 'supervisores'));
+        }
+
         $supervisores = EstruturaSupervisor::where('status', 'ATIVO')->get();
-        $fiscais = EstruturaEncarregado::with('supervisor')->get();
+        $fiscais = EstruturaEncarregado::with('supervisor')
+            ->orderBy('id')
+            ->where('name', $pesquisa)
+            ->orWhere('status', $pesquisa)
+            ->orWhere('supervisor_id', $pesquisa_supervisor->id)
+            ->paginate(15)
+            ->tap(function ($paginator) {
+                return $paginator->getCollection()->transform(function ($item) {
+                    return $item;
+                });
+            });
         return Inertia::render('Estrutura/Fiscais/Index', compact('fiscais', 'supervisores'));
     }
 
- 
+
     public function create()
     {
         //
     }
 
- 
+
     public function store(Request $request)
     {
-       
+
         BannerMessage::message('O valor informado para fiscal já está em uso.', 'danger');
         $validator = $request->validate([
             'nome' => 'required|unique:estrutura_encarregados,name',
@@ -49,7 +94,7 @@ class EstruturaFiscal extends Controller
 
 
     public function show($id)
-    
+
     {
         $supervisores = EstruturaSupervisor::where('status', 'ATIVO')->get();
         $fiscal = EstruturaEncarregado::with('supervisor')->find($id);
@@ -62,7 +107,7 @@ class EstruturaFiscal extends Controller
         //
     }
 
- 
+
     public function update(Request $request, $id)
     {
 
@@ -73,11 +118,11 @@ class EstruturaFiscal extends Controller
             'status' => 'required|string',
 
         ]);
-        
+
         $fiscal = EstruturaEncarregado::find($id);
-        
-       
-        if($validator['status'] === 'INATIVO' and $fiscal->equipes()->exists()){
+
+
+        if ($validator['status'] === 'INATIVO' and $fiscal->equipes()->exists()) {
             BannerMessage::message('Fiscal não pode ser Inativado.', 'danger');
             return redirect()->route('estrutura_fiscal.show', $id);
             exit();
@@ -96,16 +141,14 @@ class EstruturaFiscal extends Controller
     public function destroy($id)
     {
         $fiscal = EstruturaEncarregado::find($id);
-        if($fiscal->equipes()->exists()){
+        if ($fiscal->equipes()->exists()) {
 
             BannerMessage::message('Fiscal não pode ser excluído.', 'danger');
             return redirect()->route('estrutura_fiscal.show', $id);
-
         }
 
         EstruturaEncarregado::findOrFail($id)->delete();
         BannerMessage::message('Fiscal Excluído.');
         return redirect()->route('estrutura_fiscal.index', $id);
-    
     }
 }

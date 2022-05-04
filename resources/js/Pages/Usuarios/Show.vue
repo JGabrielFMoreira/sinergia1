@@ -2,7 +2,7 @@
   <app-layout title="Dashboard">
     <template #header>
       <div class="flex justify-end">
-        <a
+        <Link
           :href="route('usuarios.index')"
           class="
             inline-flex
@@ -23,12 +23,28 @@
             ease-in-out
             duration-150
           "
-          >VOLTAR</a
+          >VOLTAR</Link
         >
       </div>
-       <DialogModal :show="showModal">
+      <DialogModal :show="showModal">
         <template #content>
-          <list-item class="mb-8  items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest"> EDIÇÃO DE USUÁRIO</list-item>
+          <list-item
+            class="
+              mb-8
+              items-center
+              px-4
+              py-2
+              bg-gray-800
+              border border-transparent
+              rounded-md
+              font-semibold
+              text-xs text-white
+              uppercase
+              tracking-widest
+            "
+          >
+            EDIÇÃO DE USUÁRIO</list-item
+          >
           <form id="form" @submit.prevent="submit">
             <div class="grid grid-cols-12 gap-2">
               <div class="col-span-4">
@@ -106,7 +122,7 @@
                   >SENHA</label
                 >
                 <input
-                  disabled  
+                  disabled
                   required
                   value="aquinaopodever"
                   style="width: 100%"
@@ -154,14 +170,9 @@
                     rounded-md
                   "
                 >
-                  <option
-                    v-for="tipo in tipos"
-                    :key="tipo.id"
-                    :value="tipo.id"
-                  >
+                  <option v-for="tipo in tipos" :key="tipo.id" :value="tipo.id">
                     {{ tipo.descricao }}
                   </option>
-                  
                 </select>
               </div>
               <div class="col-span-4">
@@ -289,12 +300,12 @@
         </template>
       </DialogModal>
     </template>
-    <div class="min-h-screen bg-gray-200 py-5">
-      <div class="overflow-x-auto w-full">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="mt-6 overflow-x-auto w-full">
         <table
           class="
             mx-auto
-            max-w-5xl
+            max-w-7xl
             w-full
             whitespace-nowrap
             rounded-lg
@@ -316,16 +327,16 @@
           <tbody class="divide-y divide-gray-200">
             <tr class="text-center">
               <td class="text-xs px-2 py-2 text-center">
-                <span> {{usuario.name}} </span>
+                <span> {{ usuario.name }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
-                <span> {{usuario.matricula}} </span>
+                <span> {{ usuario.matricula }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
-                <span> {{usuario.categoria.descricao}} </span>
+                <span> {{ usuario.categoria.descricao }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
-                <span> {{usuario.empresa}} </span>
+                <span> {{ usuario.empresa }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
                 <span
@@ -336,7 +347,7 @@
                       usuario.state === 'INATIVO',
                   }"
                 >
-                  {{usuario.state}}
+                  {{ usuario.state }}
                 </span>
               </td>
               <td class="text-xs px-2 py-2">
@@ -365,7 +376,6 @@
           <button
             @click="showModalDelete = true"
             class="
-              mr-40
               mt-4
               inline-flex
               items-center
@@ -409,7 +419,7 @@
                       uppercase
                       tracking-widest
                     "
-                    >{{usuario.name}}</span
+                    >{{ usuario.name }}</span
                   >
                 </div>
               </form>
@@ -445,7 +455,6 @@
                   form="formDelete"
                   type="submit"
                   class="
-                    
                     ml-3
                     inline-flex
                     items-center
@@ -521,9 +530,7 @@ export default defineComponent({
       this.showModal = false;
     },
     submitDelete() {
-      this.formDelete.delete(
-        this.route("usuarios.destroy", this.usuario.id)
-      );
+      this.formDelete.delete(this.route("usuarios.destroy", this.usuario.id));
       this.showModalDelete = false;
     },
   },

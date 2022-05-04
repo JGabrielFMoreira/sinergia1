@@ -1,34 +1,9 @@
 <template>
   <app-layout title="Dashboard">
     <template #header>
-      <div class="flex justify-end">
-        <button
-          @click="showModal = true"
-          type="submit"
-          class="
-            ml-2
-            inline-flex
-            items-center
-            px-4
-            py-1
-            bg-gray-800
-            border border-transparent
-            rounded-md
-            font-semibold
-            text-xs text-white
-            uppercase
-            tracking-widest
-            hover:bg-gray-700
-            active:bg-gray-900
-            focus:outline-none focus:border-gray-900 focus:shadow-outline-gray
-            transition
-            ease-in-out
-            duration-150
-          "
-        >
-          NOVO ATENDIMENTO
-        </button>
-      </div>
+      <h2 class="tracking-widest font-bold text-lg text-gray-800 leading-tight">
+        Registro de Atendimentos
+      </h2>
       <DialogModal :show="showModal">
         <template #content>
           <list-item
@@ -245,15 +220,12 @@
       </DialogModal>
     </template>
 
-    <div class="min-h-screen bg-gray-200 py-5">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <form id="formPesquisa" @submit.prevent="submitPesquisa">
         <div class="grid grid-cols-12">
-          <div class="col-span-9"></div>
-
-          <div class="col-span-1">
+          <div class="flex justify-end col-span-2">
             <div
               class="
-                ml-2
                 input-group
                 relative
                 flex flex-wrap
@@ -266,6 +238,7 @@
                 type="search"
                 v-model="formPesquisa.pesquisar"
                 class="
+                  mt-6
                   form-control
                   relative
                   flex-auto
@@ -273,7 +246,7 @@
                   block
                   w-full
                   px-3
-                  py-1
+                  py-1.5
                   text-xs
                   font-normal
                   text-gray-700
@@ -295,31 +268,27 @@
             </div>
           </div>
 
-          <div class="col-span-1">
+          <div class="col-span-7">
             <button
               form="formPesquisa"
               type="submit"
               class="
-                mt-0.5
-                ml-3
+                mt-6
+                ml-2
                 btn
+                py-0.5
                 inline-block
                 px-3
-                bg-gray-800
+                bg-blue-800
                 text-white
-                font-medium
-                text-xs
-                leading-tight
-                uppercase
                 rounded
                 shadow-mdcd
-                c:
-                hover:bg-gray-900 hover:shadow-lg
-                focus:bg-gray-600
+                hover:bg-blue-600 hover:shadow-lg
+                focus:bg-blue-600
                 focus:shadow-lg
                 focus:outline-none
                 focus:ring-0
-                active:bg-gray-800 active:shadow-lg
+                active:bg-blue-800 active:shadow-lg
                 transition
                 duration-150
                 ease-in-out
@@ -330,6 +299,36 @@
               <magnify-icon />
             </button>
           </div>
+          <div class="mt-6 flex justify-end col-span-3">
+            <a
+              @click="showModal = true"
+              type="submit"
+              class="
+                mb-1
+                ml-2
+                inline-flex
+                items-center
+                px-4
+                bg-gray-800
+                border border-transparent
+                rounded-md
+                font-semibold
+                text-xs text-white
+                uppercase
+                tracking-widest
+                hover:bg-gray-700
+                active:bg-gray-900
+                focus:outline-none
+                focus:border-gray-900
+                focus:shadow-outline-gray
+                transition
+                ease-in-out
+                duration-150
+              "
+            >
+              REGISTRAR
+            </a>
+          </div>
         </div>
       </form>
 
@@ -337,7 +336,7 @@
         <table
           class="
             mx-auto
-            max-w-5xl
+            max-w-7xl
             w-full
             whitespace-nowrap
             rounded-lg
@@ -413,7 +412,7 @@
               </td>
 
               <td class="text-xs px-2 py-2">
-                <a
+                <Link
                   :href="route('atendimento.show', atendimento.id)"
                   class="
                     ml-3
@@ -427,7 +426,7 @@
                     rounded
                     dark:bg-red-200 dark:text-red-900
                   "
-                  >VISUALIZAR</a
+                  >VISUALIZAR</Link
                 >
               </td>
             </tr>
@@ -449,7 +448,7 @@
         </span>
         <!-- Buttons -->
         <div class="inline-flex xs:mt-0">
-          <a
+          <Link
             :href="atendimentos.prev_page_url"
             class="
               py-2
@@ -457,19 +456,19 @@
               text-sm
               font-medium
               text-white
-              bg-gray-800
+              bg-blue-800
               rounded-l
-              hover:bg-gray-900
-              dark:bg-gray-800
-              dark:border-gray-700
-              dark:text-gray-400
-              dark:hover:bg-gray-700
+              hover:bg-blue-900
+              dark:bg-blue-800
+              dark:border-blue-700
+              dark:text-blue-400
+              dark:hover:bg-blue-700
               dark:hover:text-white
             "
           >
             Anterior
-          </a>
-          <a
+          </Link>
+          <Link
             :href="atendimentos.next_page_url"
             class="
               py-2
@@ -477,19 +476,19 @@
               text-sm
               font-medium
               text-white
-              bg-gray-800
+              bg-blue-800
               rounded-r
-              border-0 border-l border-gray-700
-              hover:bg-gray-900
-              dark:bg-gray-800
-              dark:border-gray-700
-              dark:text-gray-400
-              dark:hover:bg-gray-700
+              border-0 border-l border-blue-700
+              hover:bg-blue-900
+              dark:bg-blue-800
+              dark:border-blue-700
+              dark:text-blue-400
+              dark:hover:bg-blue-700
               dark:hover:text-white
             "
           >
             Próximo
-          </a>
+          </Link>
         </div>
       </div>
     </div>

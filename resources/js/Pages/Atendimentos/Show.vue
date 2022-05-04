@@ -2,28 +2,28 @@
   <app-layout title="Dashboard">
     <template #header>
       <div class="flex justify-end">
-        <a
+        <Link
           :href="route('atendimento.index')"
           class="
             inline-flex
             items-center
             px-4
             py-1
-            bg-blue-800
+            bg-gray-800
             border border-transparent
             rounded-md
             font-semibold
             text-xs text-white
             uppercase
             tracking-widest
-            hover:bg-blue-600
-            active:bg-blue-900
+            hover:bg-gray-600
+            active:bg-gray-900
             focus:outline-none focus:border-gray-900 focus:shadow-outline-gray
             transition
             ease-in-out
             duration-150
           "
-          >VOLTAR</a
+          >VOLTAR</Link
         >
       </div>
       <DialogModal :show="showModal">
@@ -116,7 +116,6 @@
                 >
                   <option value="CONSUMO">CONSUMO</option>
                   <option value="DEBITO">DÉBITO</option>
-                  
                 </select>
               </div>
 
@@ -182,7 +181,6 @@
                 >
                   <option value="SIM">SIM</option>
                   <option value="NAO">NÃO</option>
-                  
                 </select>
               </div>
             </div>
@@ -244,12 +242,13 @@
         </template>
       </DialogModal>
     </template>
-    <div class="min-h-screen bg-gray-200 py-5">
-      <div class="overflow-x-auto w-full">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      
+      <div class="mt-6 overflow-x-auto w-full">
         <table
           class="
             mx-auto
-            max-w-5xl
+            max-w-7xl
             w-full
             whitespace-nowrap
             rounded-lg
@@ -265,6 +264,9 @@
               <th class="font-semibold text-xs uppercase">TIPO</th>
               <th class="font-semibold text-xs uppercase">UC CONSULTADA</th>
               <th class="font-semibold text-xs uppercase">DATA ATENDIMENTO</th>
+              <th class="font-semibold text-xs uppercase">
+                PRIMEIRA CONSULTA ?
+              </th>
               <th class="font-semibold text-xs uppercase">OS ATRIBUÍDA</th>
               <th class="font-semibold text-xs uppercase px-2 py-2">AÇÕES</th>
             </tr>
@@ -285,6 +287,18 @@
               </td>
               <td class="text-xs px-2 py-2 text-center">
                 <span> {{ atendimento.created_at }} </span>
+              </td>
+              <td class="text-xs px-2 py-2 text-center">
+                <span
+                  :class="{
+                    'bg-blue-600 text-white p-1 rounded':
+                      atendimento.primeira_consulta === 'SIM',
+                    'bg-gray-500 text-white p-1 rounded':
+                      atendimento.primeira_consulta === 'NAO',
+                  }"
+                >
+                  {{ atendimento.primeira_consulta }}
+                </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
                 <span
@@ -324,7 +338,6 @@
           <button
             @click="showModalDelete = true"
             class="
-              mr-40
               mt-4
               inline-flex
               items-center
@@ -369,7 +382,6 @@
                       tracking-widest
                     "
                   >
-                    
                   </span>
                 </div>
               </form>

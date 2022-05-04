@@ -10,9 +10,32 @@ use Inertia\Inertia;
 class EstruturaSupervisor extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $supervisores = ModelsEstruturaSupervisor::all();
+
+
+        $pesquisa = $request['pesquisar'];
+
+        if ($pesquisa === null) {
+
+            $supervisores = ModelsEstruturaSupervisor::with('encarregados')->orderBy('id')
+                ->paginate(15)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
+                });
+            return Inertia::render('Estrutura/Supervisores/Index', compact('supervisores'));
+        }
+        $supervisores = ModelsEstruturaSupervisor::with('encarregados')->orderBy('id')
+            ->where('name', $pesquisa)
+            ->orWhere('status', $pesquisa)
+            ->paginate(15)
+            ->tap(function ($paginator) {
+                return $paginator->getCollection()->transform(function ($item) {
+                    return $item;
+                });
+            });
         return Inertia::render('Estrutura/Supervisores/Index', compact('supervisores'));
     }
 
@@ -62,11 +85,11 @@ class EstruturaSupervisor extends Controller
 
         ]);
 
-        
-        
+
+
         $supervisor = ModelsEstruturaSupervisor::find($id);
 
-        if($validator['status'] === 'INATIVO' and $supervisor->encarregados()->exists()){
+        if ($validator['status'] === 'INATIVO' and $supervisor->encarregados()->exists()) {
             BannerMessage::message('Supervisor não pode ser Inativado.', 'danger');
             return redirect()->route('estrutura_supervisor.show', $id);
             exit();
@@ -84,11 +107,10 @@ class EstruturaSupervisor extends Controller
     public function destroy($id)
     {
         $supervisor = ModelsEstruturaSupervisor::find($id);
-        if($supervisor->encarregados()->exists()){
+        if ($supervisor->encarregados()->exists()) {
 
             BannerMessage::message('Supervisor não pode ser excluído.', 'danger');
             return redirect()->route('estrutura_supervisor.show', $id);
-
         }
 
         ModelsEstruturaSupervisor::findOrFail($id)->delete();
