@@ -16,23 +16,10 @@
         >Atendimentos</jet-dropdown-link
       >
     </nav-link-dropdown>
-    <nav-link-dropdown
-      label="Equipe"
-      :active="
-        route().current('equipe.*') ||
-        route().current('equipe.*') ||
-        route().current('equipe.*') ||
-        route().current('equipe*')
-      "
-    >
-      <jet-dropdown-link :href="route('medidores.index')"
-        >Saldo de materiais</jet-dropdown-link
-      >
 
-    </nav-link-dropdown>
 
     <nav-link-dropdown
-      label="Almoxarifado"
+      label="Materiais"
       :active="
         route().current('medidores.*') ||
         route().current('ramal.*') ||
