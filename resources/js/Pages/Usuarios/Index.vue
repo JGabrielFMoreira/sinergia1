@@ -366,18 +366,18 @@
                 inline-flex
                 items-center
                 px-4
-                bg-blue-800
+                bg-gray-800
                 border border-transparent
                 rounded-md
                 font-semibold
                 text-xs text-white
                 uppercase
                 tracking-widest
-                hover:bg-blue-700
-                active:bg-blue-900
+                hover:bg-gray-700
+                active:bg-gray-900
                 focus:outline-none
-                focus:border-blue-900
-                focus:shadow-outline-blue
+                focus:border-gray-900
+                focus:shadow-outline-gray
                 transition
                 ease-in-out
                 duration-150
