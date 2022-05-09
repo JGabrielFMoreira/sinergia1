@@ -30,9 +30,7 @@
       <jet-dropdown-link :href="route('medidores.index')"
         >Entregar Medidores</jet-dropdown-link
       >
-      <jet-dropdown-link :href="route('ramal.index')"
-        >Entregar Ramal</jet-dropdown-link
-      >
+
     </nav-link-dropdown>
 
     <nav-link-dropdown

@@ -2,7 +2,7 @@
   <app-layout title="Dashboard">
     <template #header>
       <div class="flex justify-end">
-        <a
+        <Link
           :href="route('medidores.index')"
           class="
             inline-flex
@@ -23,7 +23,7 @@
             ease-in-out
             duration-150
           "
-          >VOLTAR</a
+          >VOLTAR</Link
         >
       </div>
       <DialogModal :show="showModal">
@@ -280,12 +280,12 @@
         </template>
       </DialogModal>
     </template>
-    <div class="min-h-screen bg-gray-200 py-5">
-      <div class="overflow-x-auto w-full">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="mt-6 overflow-x-auto w-full">
         <table
           class="
             mx-auto
-            max-w-5xl
+            max-w-7xl
             w-full
             whitespace-nowrap
             rounded-lg
@@ -300,7 +300,10 @@
               <th class="font-semibold text-xs uppercase">MEDIDOR RECEBIDOS</th>
               <th class="font-semibold text-xs uppercase">TIPO DE MEDIDOR</th>
               <th class="font-semibold text-xs uppercase">STATUS ATUAL</th>
-              <th class="font-semibold text-xs uppercase px-2 py-2">DATA RECEBIMENTO</th>
+              <th class="font-semibold text-xs uppercase">DATA RECEBIMENTO</th>
+              <th class="font-semibold text-xs uppercase px-2 py-2">
+                DATA LANÇADO
+              </th>
             </tr>
           </thead>
           <tbody
@@ -319,12 +322,14 @@
                 <span> {{ medidor.tipo }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
-                <span> {{medidor.status }} </span>
+                <span> {{ medidor.status }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
-                <span> {{medidor.created_at }} </span>
+                <span> {{ entrega.data_entrega }} </span>
               </td>
-
+              <td class="text-xs px-2 py-2 text-center">
+                <span> {{ medidor.created_at }} </span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -332,7 +337,6 @@
           <button
             @click="showModalDelete = true"
             class="
-              mr-40
               mt-4
               inline-flex
               items-center
@@ -376,8 +380,7 @@
                       uppercase
                       tracking-widest
                     "
-                    ></span
-                  >
+                  ></span>
                 </div>
               </form>
             </template>
@@ -487,9 +490,7 @@ export default defineComponent({
       this.showModal = false;
     },
     submitDelete() {
-      this.formDelete.delete(
-        this.route("medidores.destroy", this.entrega.id)
-      );
+      this.formDelete.delete(this.route("medidores.destroy", this.entrega.id));
       this.showModalDelete = false;
     },
   },

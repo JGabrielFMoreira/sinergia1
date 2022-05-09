@@ -13,23 +13,49 @@ use Inertia\Inertia;
 class EquipeMedidores extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $pesquisa = $request['pesquisar'];
 
-        
+        if ($pesquisa === null) {
+
+            $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
+            $entregas = MdEntrega::with('equipe.encarregado')
+                ->orderByDesc('id')
+                ->paginate(15)
+                ->tap(function ($paginator) {
+                    return $paginator->getCollection()->transform(function ($item) {
+                        return $item;
+                    });
+                });
+
+            return Inertia::render('Medidores/Index', compact('entregas', 'equipes'));
+        }
+
+        $pesquisa_equipe = EstruturaEquipe::where('equipe', $pesquisa)->first();
+
         $equipes = EstruturaEquipe::where('status', 'ATIVO')->orderBy('equipe')->get();
-        $entregas = MdEntrega::with('equipe.encarregado')->orderByDesc('id')->get();
+        $entregas = MdEntrega::with('equipe.encarregado')
+            ->orderByDesc('id')
+            ->where('equipe_id', $pesquisa_equipe->id)
+            ->paginate(15)
+            ->tap(function ($paginator) {
+                return $paginator->getCollection()->transform(function ($item) {
+                    return $item;
+                });
+            });
+
         return Inertia::render('Medidores/Index', compact('entregas', 'equipes'));
     }
 
     public function create()
     {
-
     }
 
 
     public function store(Request $request)
     {
+
 
         BannerMessage::message('Você informou um medidor que já está cadastrado.', 'danger');
         $validator = $request->validate([
@@ -37,6 +63,7 @@ class EquipeMedidores extends Controller
             'medidor_1' => 'required|unique:equipe_medidors,numero_serie',
             'tipo' => 'required|string',
             'equipe' => 'required|int',
+            'date' => 'required|date',
             'medidor_2' => 'unique:equipe_medidors,numero_serie',
             'medidor_3' => 'unique:equipe_medidors,numero_serie',
             'medidor_4' => 'unique:equipe_medidors,numero_serie',
@@ -51,6 +78,7 @@ class EquipeMedidores extends Controller
 
 
         ]);
+
 
 
         if ($validator['medidor_1'] != null) {
@@ -105,6 +133,7 @@ class EquipeMedidores extends Controller
 
         $entrega = MdEntrega::Create([
             'equipe_id' => $validator['equipe'],
+            'data_entrega' => $validator['date'],
             'qtd_md' => $qtd_medidores,
             'tipo_md' => $validator['tipo'],
 
@@ -251,7 +280,7 @@ class EquipeMedidores extends Controller
     public function show($id)
     {
         $entrega = MdEntrega::find($id);
-        $medidores = EquipeMedidor::with('equipe')->where('md_entrega_id', $id)->get();
+        $medidores = EquipeMedidor::with('equipe', 'entrega')->where('md_entrega_id', $id)->get();
         return Inertia::render('Medidores/Show', compact('medidores', 'entrega'));
     }
 
@@ -270,19 +299,16 @@ class EquipeMedidores extends Controller
 
     public function destroy($id)
     {
-        
+
         //VERIFICAR SE NÃO EXISTE SERVIÇOS COM ALGUM DESSES MEDIDORES.
 
-        
+
 
         $apagarMedidores = EquipeMedidor::where('md_entrega_id', $id)->delete();
-        
+
 
         MdEntrega::findOrFail($id)->delete();
         BannerMessage::message('Medidores excluídos.');
         return redirect()->route('medidores.index', $id);
-
-
-
     }
 }
