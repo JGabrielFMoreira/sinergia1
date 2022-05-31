@@ -35,6 +35,21 @@ class Servicos extends Controller
 
         $pesquisa_responsavel = User::where('name', $pesquisa)->first();
 
+        if($pesquisa_responsavel === null){
+
+            $codigos = Codigo::all();
+            $usuarios = User::where('state', 'ATIVO')->get();
+            $servicos = Servico::with('codigo', 'user')
+            ->where('uc', $pesquisa)
+            ->orWhere('status', $pesquisa)
+            ->orderByDesc('created_at')
+            ->paginate(50);
+    
+    
+            return Inertia::render('Servicos/Index', compact('servicos', 'codigos', 'usuarios'));
+
+        }
+
         $codigos = Codigo::all();
         $usuarios = User::where('state', 'ATIVO')->get();
         $servicos = Servico::with('codigo', 'user')
