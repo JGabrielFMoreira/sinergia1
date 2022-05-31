@@ -33,11 +33,14 @@ class Servicos extends Controller
             return Inertia::render('Servicos/Index', compact('servicos', 'codigos', 'usuarios'));
         }
 
+        $pesquisa_responsavel = User::where('name', $pesquisa)->first();
+
         $codigos = Codigo::all();
         $usuarios = User::where('state', 'ATIVO')->get();
         $servicos = Servico::with('codigo', 'user')
         ->where('uc', $pesquisa)
         ->orWhere('status', $pesquisa)
+        ->orWhere('responsavel_id', $pesquisa_responsavel->id)
         ->orderByDesc('created_at')
         ->paginate(50);
 
