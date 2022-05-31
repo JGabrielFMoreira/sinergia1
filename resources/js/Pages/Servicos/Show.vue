@@ -185,7 +185,7 @@
                 >
                   <option value="PENDENTE">PENDENTE</option>
                   <option value="RETORNO">RETORNO</option>
-                  <option value="RETORNO">AGUARDANDO</option>
+                  <option value="AGUARDANDO">AGUARDANDO</option>
                   <option value="BAIXADO">BAIXADO</option>
                 </select>
               </div>
