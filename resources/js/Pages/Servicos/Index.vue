@@ -353,7 +353,7 @@
                     'bg-red-600 text-white p-1 rounded':
                       servico.status === 'RETORNO',
                     'bg-yellow-600 text-white p-1 rounded':
-                      servico.status === 'RETORNO',
+                      servico.status === 'AGUARDANDO',
                     'bg-green-600 text-white p-1 rounded':
                       servico.status === 'BAIXADO',
                   }"
