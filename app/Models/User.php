@@ -29,6 +29,11 @@ class User extends Authenticatable
         return $this->hasMany(MdEntrega::class);
     }
 
+    public function servicos()
+    {
+        return $this->hasMany(Servico::class);
+    }
+
 
     protected $hidden = [
         'password',

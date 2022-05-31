@@ -6,6 +6,7 @@ use App\Http\Controllers\EquipeRamal;
 use App\Http\Controllers\EstruturaCadastro;
 use App\Http\Controllers\EstruturaFiscal;
 use App\Http\Controllers\EstruturaSupervisor;
+use App\Http\Controllers\Servicos;
 use App\Http\Controllers\UsuariosController;
 use App\Models\EstruturaEquipe;
 use Illuminate\Foundation\Application;
@@ -94,3 +95,11 @@ Route::post('/atendimento/store', [Atendimentos::class, 'store'])->name('atendim
 Route::get('/atendimento/{id}/show', [Atendimentos::class, 'show'])->name('atendimento.show');
 Route::put('/atendimento/{id}/update', [Atendimentos::class, 'update'])->name('atendimento.update');
 Route::delete('/atendimento/{id}/destroy', [Atendimentos::class, 'destroy'])->name('atendimento.destroy');
+
+//ROTAS PARA REGISTROS DE DISTRIBUIÇÃO DE SERVIÇOS
+
+Route::get('/servicos', [Servicos::class, 'index'])->name('servicos.index');
+Route::post('/servicos/store', [Servicos::class, 'store'])->name('servicos.store');
+Route::get('/servicos/{id}/show', [Servicos::class, 'show'])->name('servicos.show');
+Route::put('/servicos/{id}/update', [Servicos::class, 'update'])->name('servicos.update');
+Route::delete('/servicos/{id}/destroy', [Servicos::class, 'destroy'])->name('servicos.destroy');

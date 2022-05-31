@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Codigo extends Model
 {
     use HasFactory;
+
+    public function servicos()
+    {
+        return $this->hasMany(Servico::class);
+    }
+    
 }

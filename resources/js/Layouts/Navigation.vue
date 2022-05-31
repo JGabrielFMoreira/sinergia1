@@ -5,18 +5,19 @@
       :active="route().current('dashboard')"
       >Dashboard</jet-nav-link
     >
-        <nav-link-dropdown
+    <nav-link-dropdown
       label="Baixa de OS"
-      :active="
-        route().current('atendimento.*')
-    
+      :active="route().current('atendimento.*') ||
+      route().current('servicos.*')
       "
     >
       <jet-dropdown-link :href="route('atendimento.index')"
         >Atendimentos</jet-dropdown-link
       >
+      <jet-dropdown-link :href="route('servicos.index')"
+        >Parecer técnico</jet-dropdown-link
+      >
     </nav-link-dropdown>
-
 
     <nav-link-dropdown
       label="Materiais"
@@ -30,12 +31,15 @@
       <jet-dropdown-link :href="route('medidores.index')"
         >Entregar Medidores</jet-dropdown-link
       >
-
     </nav-link-dropdown>
 
     <nav-link-dropdown
       label="Estrutura"
-      :active="route().current('estrutura.*') || route().current('estrutura_fiscal.*') || route().current('estrutura_supervisor.*')"
+      :active="
+        route().current('estrutura.*') ||
+        route().current('estrutura_fiscal.*') ||
+        route().current('estrutura_supervisor.*')
+      "
     >
       <jet-dropdown-link :href="route('estrutura.index')"
         >Equipes</jet-dropdown-link

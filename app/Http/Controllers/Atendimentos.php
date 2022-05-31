@@ -141,6 +141,6 @@ class Atendimentos extends Controller
 
         Atendimento::findOrFail($id)->delete();
         BannerMessage::message('Atendimento excluído.');
-        return redirect()->route('atendimento.index', $id);
+        return redirect()->route('atendimento.index');
     }
 }
