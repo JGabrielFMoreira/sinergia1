@@ -296,11 +296,11 @@
               <td class="text-xs px-2 py-2 text-center">
                 <span
                   :class="{
-                   'bg-blue-600 text-white p-1 rounded':
+                    'bg-blue-600 text-white p-1 rounded':
                       servico.status === 'PENDENTE',
                     'bg-red-600 text-white p-1 rounded':
                       servico.status === 'RETORNO',
-                    'bg-yellow-600 text-white p-1 rounded':
+                    'bg-gray-600 text-white p-1 rounded':
                       servico.status === 'AGUARDANDO',
                     'bg-green-600 text-white p-1 rounded':
                       servico.status === 'BAIXADO',
