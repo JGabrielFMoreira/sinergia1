@@ -306,6 +306,7 @@
             rounded-lg
             bg-white
             divide-y divide-gray-300
+            
             overflow-hidden
           "
         >

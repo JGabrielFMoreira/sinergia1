@@ -7,8 +7,8 @@
     >
     <nav-link-dropdown
       label="Baixa de OS"
-      :active="route().current('atendimento.*') ||
-      route().current('servicos.*')
+      :active="
+        route().current('atendimento.*') || route().current('servicos.*')
       "
     >
       <jet-dropdown-link :href="route('atendimento.index')"
@@ -20,16 +20,42 @@
     </nav-link-dropdown>
 
     <nav-link-dropdown
-      label="Materiais"
+      label="Medidores"
       :active="
         route().current('medidores.*') ||
-        route().current('ramal.*') ||
+        route().current('saldo_medidores.*') ||
         route().current('medidores.*') ||
         route().current('medidores*')
       "
     >
       <jet-dropdown-link :href="route('medidores.index')"
-        >Entregar Medidores</jet-dropdown-link
+        >Recebido</jet-dropdown-link
+      >
+      <jet-dropdown-link :href="route('saldo_medidores.index')"
+        >Saldo</jet-dropdown-link
+      >
+      <jet-dropdown-link :href="route('medidores.index')"
+        >Aplicado</jet-dropdown-link
+      >
+    </nav-link-dropdown>
+
+     <nav-link-dropdown
+      label="Materiais"
+      :active="
+        route().current('materiais.*') ||
+        route().current('smedidores.*') ||
+        route().current('medidores.*') ||
+        route().current('medidores*')
+      "
+    >
+      <jet-dropdown-link :href="route('medidores.index')"
+        >Recebido</jet-dropdown-link
+      >
+      <jet-dropdown-link :href="route('saldo_medidores.index')"
+        >Saldo</jet-dropdown-link
+      >
+      <jet-dropdown-link :href="route('medidores.index')"
+        >Aplicado</jet-dropdown-link
       >
     </nav-link-dropdown>
 

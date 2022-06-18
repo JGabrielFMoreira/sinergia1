@@ -703,7 +703,7 @@
                 <span> {{ entrega.tipo_md }} </span>
               </td>
               <td class="text-xs px-2 py-2 text-center">
-                <span> {{ entrega.data_entrega }} </span>
+                <span> {{ entrega.created_at }} </span>
               </td>
               <td class="text-xs px-2 py-2">
                 <Link

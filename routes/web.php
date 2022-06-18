@@ -6,6 +6,7 @@ use App\Http\Controllers\EquipeRamal;
 use App\Http\Controllers\EstruturaCadastro;
 use App\Http\Controllers\EstruturaFiscal;
 use App\Http\Controllers\EstruturaSupervisor;
+use App\Http\Controllers\SaldoMedidores;
 use App\Http\Controllers\Servicos;
 use App\Http\Controllers\UsuariosController;
 use App\Models\EstruturaEquipe;
@@ -78,6 +79,10 @@ Route::get('/medidor', [EquipeMedidores::class, 'index'])->name('medidores.index
 Route::post('/medidor/store', [EquipeMedidores::class, 'store'])->name('medidores.store');
 Route::get('/medidor/{id}/show', [EquipeMedidores::class, 'show'])->name('medidores.show');
 Route::delete('/medidor/{id}/destroy', [EquipeMedidores::class, 'destroy'])->name('medidores.destroy');
+
+//ROTAS PARA SALDO DE MEDIDORES:
+Route::get('/medidor/saldo', [SaldoMedidores::class, 'index'])->name('saldo_medidores.index');
+
 
 //ROTAS PARA CADASTRO DE RAMAL:
 

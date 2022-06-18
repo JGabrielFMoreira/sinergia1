@@ -29,7 +29,7 @@ class EquipeMedidores extends Controller
                     });
                 });
 
-            return Inertia::render('Medidores/Index', compact('entregas', 'equipes'));
+            return Inertia::render('Medidores/Recebido/Index', compact('entregas', 'equipes'));
         }
 
         $pesquisa_equipe = EstruturaEquipe::where('equipe', $pesquisa)->first();
@@ -45,7 +45,7 @@ class EquipeMedidores extends Controller
                 });
             });
 
-        return Inertia::render('Medidores/Index', compact('entregas', 'equipes'));
+        return Inertia::render('Medidores/Recebido/Index', compact('entregas', 'equipes'));
     }
 
     public function create()
@@ -281,7 +281,7 @@ class EquipeMedidores extends Controller
     {
         $entrega = MdEntrega::find($id);
         $medidores = EquipeMedidor::with('equipe', 'entrega')->where('md_entrega_id', $id)->get();
-        return Inertia::render('Medidores/Show', compact('medidores', 'entrega'));
+        return Inertia::render('Medidores/Recebido/Show', compact('medidores', 'entrega'));
     }
 
 
@@ -304,7 +304,7 @@ class EquipeMedidores extends Controller
 
 
 
-        $apagarMedidores = EquipeMedidor::where('md_entrega_id', $id)->delete();
+        EquipeMedidor::where('md_entrega_id', $id)->delete();
 
 
         MdEntrega::findOrFail($id)->delete();
