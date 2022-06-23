@@ -85,12 +85,16 @@
                     rounded-md
                   "
                 >
-                  <option v-for="codigo in codigos" :key="codigo.id" :value="codigo.id">
+                  <option
+                    v-for="codigo in codigos"
+                    :key="codigo.id"
+                    :value="codigo.id"
+                  >
                     {{ codigo.codigo }}
                   </option>
                 </select>
               </div>
-               <div class="col-span-4">
+              <div class="col-span-4">
                 <label
                   for="responsavel"
                   class="
@@ -119,12 +123,15 @@
                     rounded-md
                   "
                 >
-                  <option v-for="usuario in usuarios" :key="usuario.id" :value="usuario.id">
+                  <option
+                    v-for="usuario in usuarios"
+                    :key="usuario.id"
+                    :value="usuario.id"
+                  >
                     {{ usuario.name }}
                   </option>
                 </select>
               </div>
-             
             </div>
           </form>
         </template>
@@ -306,7 +313,6 @@
             rounded-lg
             bg-white
             divide-y divide-gray-300
-            
             overflow-hidden
           "
         >
@@ -355,11 +361,13 @@
                       servico.status === 'RETORNO',
                     'bg-gray-600 text-white p-1 rounded':
                       servico.status === 'AGUARDANDO',
+                    'bg-gray-900 text-white p-1 rounded':
+                      servico.status === 'CANCELADO',
                     'bg-green-600 text-white p-1 rounded':
                       servico.status === 'BAIXADO',
                   }"
                 >
-                  {{servico.status}}
+                  {{ servico.status }}
                 </span>
               </td>
               <td class="text-xs px-2 py-2">
@@ -384,7 +392,7 @@
           </tbody>
         </table>
       </div>
-       <div class="mt-2 flex flex-col items-center">
+      <div class="mt-2 flex flex-col items-center">
         <!-- Help text -->
         <span class="text-sm text-gray-700 dark:text-gray-400">
           Visualizando

@@ -24,12 +24,6 @@ class Servico extends BaseModel
                 $builder->where('responsavel_id', auth()->id());
             });
         };
-
-        if ($usuario->categoria_id === 6) {
-            static::addGlobalScope('user_id', function (Builder $builder) {
-                $builder->where('status', 'RETORNO');
-            });
-        };
         
     }
 

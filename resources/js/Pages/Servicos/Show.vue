@@ -186,6 +186,7 @@
                   <option value="PENDENTE">PENDENTE</option>
                   <option value="RETORNO">RETORNO</option>
                   <option value="AGUARDANDO">AGUARDANDO</option>
+                  <option value="CANCELADO">CANCELADO</option>
                   <option value="BAIXADO">BAIXADO</option>
                 </select>
               </div>
@@ -302,6 +303,8 @@
                       servico.status === 'RETORNO',
                     'bg-gray-600 text-white p-1 rounded':
                       servico.status === 'AGUARDANDO',
+                    'bg-gray-900 text-white p-1 rounded':
+                      servico.status === 'CANCELADO',
                     'bg-green-600 text-white p-1 rounded':
                       servico.status === 'BAIXADO',
                   }"
