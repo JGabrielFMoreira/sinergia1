@@ -12,7 +12,7 @@
       "
     >
       <jet-dropdown-link :href="route('atendimento.index')"
-        >Atendimentossss</jet-dropdown-link
+        >AtendimentosSSS</jet-dropdown-link
       >
       <jet-dropdown-link :href="route('servicos.index')"
         >Parecer técnico</jet-dropdown-link
