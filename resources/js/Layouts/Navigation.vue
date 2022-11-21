@@ -3,7 +3,7 @@
     <jet-nav-link
       :href="route('dashboard')"
       :active="route().current('dashboard')"
-      >Dashboards</jet-nav-link
+      >Dashboard</jet-nav-link
     >
     <nav-link-dropdown
       label="Baixa de OS"
@@ -12,7 +12,7 @@
       "
     >
       <jet-dropdown-link :href="route('atendimento.index')"
-        >Atendimentos</jet-dropdown-link
+        >Atendimentossss</jet-dropdown-link
       >
       <jet-dropdown-link :href="route('servicos.index')"
         >Parecer técnico</jet-dropdown-link
