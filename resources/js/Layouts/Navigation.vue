@@ -3,10 +3,10 @@
     <jet-nav-link
       :href="route('dashboard')"
       :active="route().current('dashboard')"
-      >Dashboard</jet-nav-link
+      >Dashboards</jet-nav-link
     >
     <nav-link-dropdown
-      label="Baixa de OSss"
+      label="Baixa de OS"
       :active="
         route().current('atendimento.*') || route().current('servicos.*')
       "
