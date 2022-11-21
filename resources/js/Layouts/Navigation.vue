@@ -6,7 +6,7 @@
       >Dashboard</jet-nav-link
     >
     <nav-link-dropdown
-      label="Baixa de OS"
+      label="Baixa de OSss"
       :active="
         route().current('atendimento.*') || route().current('servicos.*')
       "
